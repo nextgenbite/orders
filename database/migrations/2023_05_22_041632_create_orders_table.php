@@ -22,7 +22,8 @@ class CreateOrdersTable extends Migration
             $table->string('mobile_number');
             $table->string('district');
             $table->string('thana');
-            $table->string('address');
+            $table->string('village');
+            $table->string('address')->nullable();
             $table->string('date');
 
             $table->timestamps();

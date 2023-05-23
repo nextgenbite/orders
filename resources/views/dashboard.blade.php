@@ -10,12 +10,12 @@
                         <tr>
                             <th>Date</th>
                             <th>Mobile no.</th>
-                            <th>District</th>
-                            <th>Thana</th>
-                            <th>Address</th>
                             <th>Product Name/Model no.</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
+                            <th>Details</th>
+                            <th>Action</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -24,13 +24,18 @@
                         <tr>
                             <td>{{$order->date}}</td>
                             <td>{{$order->mobile_number}}</td>
-
-                            <td>{{$order->district}}</td>
-                            <td>{{$order->thana}}</td>
-                            <td>{{$order->address}}</td>
                             <td>{{$order->product_name}}</td>
                             <td>{{$order->quantity}}</td>
                             <td>{{$order->price}}</td>
+                            <td><a href="{{ Route('order.view',$order) }}" class="btn btn-info btn-sm" title="Edit Data">View </a></td>
+                            <td>
+
+                                    <form action="{{Route('order.destroy', $order->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                    <button class="btn btn-danger btn-sm" title="Delete Now" type="submit"> Delete</button>
+                                    </form>
+                            </td>
                         </tr>
                         @empty
                         <td colspan="8" class="text-center text-bold text-warning">No Data Found</td>
@@ -41,12 +46,11 @@
                         <tr>
                             <th>Date</th>
                             <th>Mobile no.</th>
-                            <th>District</th>
-                            <th>Thana</th>
-                            <th>Address</th>
                             <th>Product Name/Model no.</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
+                            <th>Details</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                 </table>

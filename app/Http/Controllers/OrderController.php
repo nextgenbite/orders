@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
-
+use MPDF;
 class OrderController extends Controller
 {
     /**
@@ -60,9 +60,36 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        //
+
+         $order= Order::findOrFail($id);
+        $data = [
+            'invoice_number' => 'INV-001',
+            'date' => date('Y-m-d'),
+            'customer' => 'John Doe',
+            'items' => [
+                [
+                    'description' => 'Product A',
+                    'quantity' => 2,
+                    'price' => 10,
+                    'total' => 20
+                ],
+                [
+                    'description' => 'Product B',
+                    'quantity' => 3,
+                    'price' => 15,
+                    'total' => 45
+                ]
+            ],
+            'subtotal' => 65,
+            'tax' => 5,
+            'total' => 70
+        ];
+
+        $pdf = Mpdf::loadView('invoice', $order);
+        return $pdf->stream('invoice.pdf');
+        // return view('order-view', compact('order'));
     }
 
     /**
@@ -73,7 +100,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+
+
     }
 
     /**
@@ -97,5 +125,34 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function viewPdf()
+    {
+        $data = [
+            'invoice_number' => 'INV-001',
+            'date' => date('Y-m-d'),
+            'customer' => 'John Doe',
+            'items' => [
+                [
+                    'description' => 'Product A',
+                    'quantity' => 2,
+                    'price' => 10,
+                    'total' => 20
+                ],
+                [
+                    'description' => 'Product B',
+                    'quantity' => 3,
+                    'price' => 15,
+                    'total' => 45
+                ]
+            ],
+            'subtotal' => 65,
+            'tax' => 5,
+            'total' => 70
+        ];
+
+        $pdf = Mpdf::loadView('invoice', $data);
+        return $pdf->stream('invoice.pdf');
     }
 }
