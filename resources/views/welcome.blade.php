@@ -19,8 +19,19 @@
 
 
     <div class="container card shadow mt-4">
-        <div class="card-body">
+        <div class="card-header">
             <h1 class="text-center text-uppercase text-success text-bold">Online Order form</h1>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+        </div>
+        <div class="card-body">
             <form class="row g-3  " method="post" action="{{ route('order.store') }}">
                 @csrf
                 <h3>Product Information:</h3>
