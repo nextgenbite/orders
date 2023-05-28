@@ -22,7 +22,7 @@ Route::group([ 'middleware'=>'auth'], function(){
 
     // orders route
     Route::get('/dashboard',[App\Http\Controllers\OrderController::class, 'index'])->middleware('auth')->name('dashboard');
-    Route::get('/order/view/{id}',[App\Http\Controllers\OrderController::class, 'show'])->name('order.view');
-    Route::post('/order/delete',[App\Http\Controllers\OrderController::class, 'destroy'])->name('order.destroy');
+    Route::get('/order/view/{order}',[App\Http\Controllers\OrderController::class, 'show'])->name('order.view');
+    Route::delete('/order/delete/{order}',[App\Http\Controllers\OrderController::class, 'destroy'])->name('order.destroy');
 });
 require __DIR__.'/auth.php';

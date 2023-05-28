@@ -30,7 +30,7 @@
                             <td><a href="{{ Route('order.view',$order) }}" class="btn btn-info btn-sm" title="Edit Data">View </a></td>
                             <td>
 
-                                    <form action="{{Route('order.destroy', $order->id)}}" method="post">
+                                    <form action="{{Route('order.destroy', $order)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                     <button class="btn btn-danger btn-sm" title="Delete Now" type="submit"> Delete</button>

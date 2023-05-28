@@ -60,10 +60,10 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order  $order)
     {
 
-         $order= Order::findOrFail($id);
+
         $data = [
             'invoice_number' => 'INV-001',
             'date' => date('Y-m-d'),
@@ -124,7 +124,15 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        $notification = array(
+            'message' => 'Order Delete Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
     }
 
     public function viewPdf()
