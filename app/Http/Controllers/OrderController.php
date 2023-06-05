@@ -51,7 +51,7 @@ class OrderController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->back()->with($notification);
+        return view('complete-msg')->with($notification);
     }
 
     /**
